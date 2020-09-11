@@ -20,6 +20,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @Primary
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
@@ -52,5 +54,13 @@ public class AuthService implements UserDetailsService {
         User user = userRepository.findByUsername(s).orElseThrow(
                 () -> new UsernameNotFoundException(s + " not found!"));
         return new UserPrincipal(user);
+    }
+
+    public Optional<org.springframework.security.core.userdetails.User>
+    getCurrentUser() {
+        return Optional.ofNullable(
+                (org.springframework.security.core.userdetails.User)
+                        SecurityContextHolder.getContext().getAuthentication()
+                                .getPrincipal());
     }
 }
