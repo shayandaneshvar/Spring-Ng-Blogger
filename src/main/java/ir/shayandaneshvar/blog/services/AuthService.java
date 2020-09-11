@@ -23,9 +23,8 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-@Primary
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-public class AuthService implements UserDetailsService {
+public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
@@ -49,12 +48,6 @@ public class AuthService implements UserDetailsService {
         return jwtProvider.generateToken(auth);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(s).orElseThrow(
-                () -> new UsernameNotFoundException(s + " not found!"));
-        return new UserPrincipal(user);
-    }
 
     public Optional<org.springframework.security.core.userdetails.User>
     getCurrentUser() {

@@ -1,6 +1,7 @@
 package ir.shayandaneshvar.blog.config;
 
 import ir.shayandaneshvar.blog.security.JwtAuthenticationFilter;
+import ir.shayandaneshvar.blog.services.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +12,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
-    private final UserDetailsService userDetailsService;
+    private final UserDetailsServiceImpl userDetailsService;
     private final JwtAuthenticationFilter filter;
     @Override
     @Bean(BeanIds.AUTHENTICATION_MANAGER)
@@ -39,7 +39,10 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(filter,
                         UsernamePasswordAuthenticationFilter.class);
     }
-
+//    @Bean
+//    public JwtAuthenticationFilter jwtAuthenticationFilter() {
+//        return new JwtAuthenticationFilter();
+//    }
 
 
     @Override

@@ -1,7 +1,11 @@
 package ir.shayandaneshvar.blog.security;
 
 import ir.shayandaneshvar.blog.services.AuthService;
+import ir.shayandaneshvar.blog.services.UserDetailsServiceImpl;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,11 +20,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+//@NoArgsConstructor
 @Component
 @RequiredArgsConstructor
+//@Setter(onMethod_ = @Autowired)
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtProvider jwtProvider;
-    private final AuthService authService;
+    private final UserDetailsServiceImpl userDetailsService;
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest,
@@ -30,7 +37,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String jwt = getJwtFromRequest(httpServletRequest);
         if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt)) {
             String username = jwtProvider.getUsername(jwt);
-            UserDetails userDetails = authService.loadUserByUsername(username);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
             UsernamePasswordAuthenticationToken auth = new
                     UsernamePasswordAuthenticationToken(userDetails, null,
                     userDetails.getAuthorities());
