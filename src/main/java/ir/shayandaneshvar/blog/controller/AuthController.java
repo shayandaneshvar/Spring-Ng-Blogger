@@ -1,6 +1,6 @@
 package ir.shayandaneshvar.blog.controller;
 
-import ir.shayandaneshvar.blog.dto.RegisterRequest;
+import ir.shayandaneshvar.blog.api.v1.model.RegisterRequest;
 import ir.shayandaneshvar.blog.services.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

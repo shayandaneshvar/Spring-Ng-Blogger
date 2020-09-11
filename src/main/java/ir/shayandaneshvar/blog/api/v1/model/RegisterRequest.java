@@ -1,4 +1,4 @@
-package ir.shayandaneshvar.blog.dto;
+package ir.shayandaneshvar.blog.api.v1.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
