@@ -1,5 +1,6 @@
 package ir.shayandaneshvar.blog.controller.v1;
 
+import ir.shayandaneshvar.blog.api.v1.model.AuthenticationResponse;
 import ir.shayandaneshvar.blog.api.v1.model.LoginRequest;
 import ir.shayandaneshvar.blog.api.v1.model.RegisterRequest;
 import ir.shayandaneshvar.blog.services.AuthService;
@@ -25,7 +26,7 @@ public class AuthController {
     }
 
     @PostMapping(value = "/login")
-    public String login(@RequestBody LoginRequest request) {
+    public AuthenticationResponse login(@RequestBody LoginRequest request) {
         return authService.login(request);
     }
 }
