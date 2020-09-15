@@ -16,11 +16,10 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class PostController {
     private final PostService postService;
-
     @PostMapping()
     public ResponseEntity<?> createPost(@RequestBody PostDtoRequest dto) {
         postService.createPost(dto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/all")

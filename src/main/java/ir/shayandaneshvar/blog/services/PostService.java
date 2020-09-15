@@ -6,9 +6,9 @@ import ir.shayandaneshvar.blog.api.v1.model.PostDtoResponse;
 import ir.shayandaneshvar.blog.exceptions.PostNotFoundException;
 import ir.shayandaneshvar.blog.model.Post;
 import ir.shayandaneshvar.blog.repo.PostRepository;
+import ir.shayandaneshvar.blog.security.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -32,7 +32,7 @@ public class PostService {
 
     private Post mapToPost(PostDtoRequest request) {
         Post post = PostMapper.INSTANCE.convertToPost(request);
-        User user = authService.getCurrentUser().orElseThrow(() ->
+        UserPrincipal user = authService.getCurrentUser().orElseThrow(() ->
                 new IllegalArgumentException("No User Logged in!"));
         post.setUsername(user.getUsername())
                 .setCreatedOn(Instant.now())

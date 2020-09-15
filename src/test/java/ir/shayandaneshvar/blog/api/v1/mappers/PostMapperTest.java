@@ -13,12 +13,11 @@ class PostMapperTest {
 
     @Test
     public void testToPost() {
-        PostDtoRequest postDtoRequest = new PostDtoRequest().setContent(CONTENT).setId(ID)
+        PostDtoRequest postDtoRequest = new PostDtoRequest().setContent(CONTENT)
                 .setTitle(TITLE);
         Post post = mapper.convertToPost(postDtoRequest);
         Assertions.assertEquals(post.getContent(), CONTENT);
         Assertions.assertEquals(post.getTitle(), TITLE);
-        Assertions.assertEquals(post.getId(), Integer.parseInt(ID));
     }
 
     @Test

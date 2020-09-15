@@ -7,6 +7,7 @@ import ir.shayandaneshvar.blog.api.v1.model.RegisterRequest;
 import ir.shayandaneshvar.blog.model.User;
 import ir.shayandaneshvar.blog.repo.UserRepository;
 import ir.shayandaneshvar.blog.security.JwtProvider;
+import ir.shayandaneshvar.blog.security.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -47,11 +48,10 @@ public class AuthService {
     }
 
 
-    public Optional<org.springframework.security.core.userdetails.User>
+    public Optional<UserPrincipal>
     getCurrentUser() {
         return Optional.ofNullable(
-                (org.springframework.security.core.userdetails.User)
-                        SecurityContextHolder.getContext().getAuthentication()
+                (UserPrincipal) SecurityContextHolder.getContext().getAuthentication()
                                 .getPrincipal());
     }
 }
